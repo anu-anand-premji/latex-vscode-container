@@ -1,6 +1,5 @@
 {
     "customizations": {
-        // Configure properties specific to VS Code.
         "vscode": {
             "extensions": [
                 "james-yu.latex-workshop"
