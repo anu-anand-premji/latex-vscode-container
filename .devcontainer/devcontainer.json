@@ -1,0 +1,44 @@
+{
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            "extensions": [
+                "james-yu.latex-workshop"
+            ],
+            "settings": {
+                "latex-workshop.latex.recipes": [
+                    {
+                        "name": "lualatex->biber->lualatex",
+                        "tools": [
+                            "lualatex",
+                            "biber",
+                            "lualatex"
+                        ]
+                    }
+                ],
+                "latex-workshop.latex.tools": [
+                    {
+                        "args": [
+                            "-synctex=1",
+                            "-interaction=nonstopmode",
+                            "-file-line-error",
+                            "-pdf",
+                            "%DOC%"
+                        ],
+                        "command": "lualatex",
+                        "name": "lualatex"
+                    },
+                    {
+                        "args": [
+                            "%DOCFILE%"
+                        ],
+                        "command": "biber",
+                        "name": "biber"
+                    }
+                ]
+            }
+        }
+    },
+    "dockerFile": "Dockerfile",
+    "name": "TeX Live base"
+}

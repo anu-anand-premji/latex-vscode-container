@@ -1,0 +1,24 @@
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt-get -y install --no-install-recommends apt-utils 2>&1
+
+# Verify git and needed tools are installed
+RUN apt-get install --no-install-recommends -y git procps wget
+
+RUN cd /tmp \
+ && wget --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+ && tar xzvf install-tl-unx.tar.gz \
+ && cd install-tl-* \
+ && perl ./install-tl --paper=letter --scheme=full --no-interaction
+
+ENV PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
+
+# Clean up
+RUN apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND=dialog \
+    LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
